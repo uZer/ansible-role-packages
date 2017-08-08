@@ -1,0 +1,29 @@
+---
+- include: install.yml
+  tags:
+    - packages
+    - updates
+    - upgrades
+    - apt
+    - yum
+
+- include: update_apt.yml
+  when: >
+    ansible_os_family == 'Debian' and
+    not upgrade_ubuntu_mode == 'no'
+  tags:
+    - packages
+    - updates
+    - upgrades
+    - apt
+
+- include: update_yum.yml
+  when: >
+    ansible_os_family == 'RedHat' and
+    must_upgrade_yum
+  tags:
+    - packages
+    - updates
+    - upgrades
+    - yum
+# vim:ft=ansible:
