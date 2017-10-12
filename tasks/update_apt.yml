@@ -2,6 +2,7 @@
 - name: Update and upgrade all packages (apt)
   apt:
     upgrade: "{{ upgrade_ubuntu_mode }}"
+  become: yes
   when: ansible_os_family == 'Debian'
 
 ####### Broken with no name given. Waiting for a patch.
@@ -14,9 +15,10 @@
 
 # FIXME: Replace with commented bloc as soon as Ansible is updated
 - name: UBUNTU apt-get autoremove
-  when: ansible_distribution == 'Ubuntu'
   shell: "apt-get -y autoremove --purge"
   # changed_when: false
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - meta: flush_handlers
 # vim:ft=ansible:

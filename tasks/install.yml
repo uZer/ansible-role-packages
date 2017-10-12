@@ -5,6 +5,7 @@
     cache_valid_time: 3600
     name: "{{ item }}"
     state: installed
+  become: yes
   when: ansible_os_family == 'Debian'
   with_items:
     - "{{ install_packages.Debian }}"
@@ -13,6 +14,7 @@
   yum:
     name: "{{ item }}"
     state: installed
+  become: yes
   when: ansible_os_family == 'RedHat'
   with_items:
     - "{{ install_packages.RedHat }}"
@@ -21,6 +23,7 @@
   apt:
     name: "{{ item }}"
     state: absent
+  become: yes
   when: ansible_os_family == 'Debian'
   with_items:
     - "{{ removed_packages.Debian }}"
@@ -29,6 +32,7 @@
   yum:
     name: "{{ item }}"
     state: absent
+  become: yes
   when: ansible_os_family == 'RedHat'
   with_items:
     - "{{ removed_packages.RedHat }}"
